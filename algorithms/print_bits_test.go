@@ -1,20 +1,10 @@
 package algorithms
 
-import "testing"
+import (
+	"testing"
 
-func compareSlice(a, b []int8) bool {
-	if len(a) != len(b) {
-		return false
-	}
-
-	for i := range a {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-
-	return true
-}
+	"github.com/the-code-genin/dsa_practice/internal"
+)
 
 func TestPrintBits(t *testing.T) {
 	cases := []struct {
@@ -32,7 +22,7 @@ func TestPrintBits(t *testing.T) {
 
 	for _, tc := range cases {
 		res := PrintBits(tc.in)
-		if !compareSlice(res, tc.out) {
+		if !internal.CompareSlice(res, tc.out) {
 			t.Errorf("expected %v, got %v", tc.out, res)
 		}
 	}
