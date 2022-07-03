@@ -80,6 +80,35 @@ func (btn *BinaryTreeNode) Get(key []byte) ([]byte, error) {
 	}
 }
 
+// Update data by comparing a node's key with the search key
+// If the node's key doesn't match, it propagates the key search to the appropriate child
+// If the node doesn't have appropriate children, it returns an error
+func (btn *BinaryTreeNode) Update(key []byte, data []byte) error {
+	tnKey := new(big.Int).SetBytes(btn.key)
+	nodeKey := new(big.Int).SetBytes(key)
+
+	if x := tnKey.Cmp(nodeKey); x == 0 { // The right key
+		btn.data = data
+		return nil
+	} else { // Not the right key
+		if x > 0 { // The search key is greater than current node key
+			if btn.right == nil { // If the right leaf is empty
+				return BinaryTreeKeyNotFoundError{}
+			}
+
+			// Tell the right node to update the data based on the search key
+			return btn.right.Update(key, data)
+		} else { // The search key is lesser than the current node key
+			if btn.left == nil { // If the left leaf is empty
+				return BinaryTreeKeyNotFoundError{}
+			}
+
+			// Tell the left node to get the data based on the search key
+			return btn.left.Update(key, data)
+		}
+	}
+}
+
 func NewBinaryTreeNode(key, data []byte) *BinaryTreeNode {
 	return &BinaryTreeNode{key, data, nil, nil}
 }
