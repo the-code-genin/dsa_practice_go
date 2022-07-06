@@ -2,8 +2,8 @@ package algorithms
 
 import "math"
 
-func PrintBits(input byte) []int8 {
-	output := make([]int8, 0)
+func PrintBits(input byte) []byte {
+	output := make([]byte, 0)
 
 	for i := float64(7); i >= 0; i-- {
 		if int8(input) & int8(math.Pow(2, i)) != 0 { // Bit is present
