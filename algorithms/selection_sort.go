@@ -16,10 +16,12 @@ func (s SelectionSort) SortInt(input []int) ([]int) {
 			}
 		}
 
-		oldSmallestValue := output[i]
-
-		output[i] = smallestValue
-		output[smallestIndex] = oldSmallestValue
+		if smallestIndex != i {
+			oldSmallestValue := output[i]
+	
+			output[i] = smallestValue
+			output[smallestIndex] = oldSmallestValue
+		}
 	}
 
 	return output
