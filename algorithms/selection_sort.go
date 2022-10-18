@@ -9,7 +9,7 @@ func (s SelectionSort) SortInt(input []int) ([]int) {
 		smallestValue := output[i]
 		smallestIndex := i
 
-		for j := i; j < len(output); j++ {
+		for j := i + 1; j < len(output); j++ {
 			if output[j] < smallestValue {
 				smallestValue = output[j]
 				smallestIndex = j
