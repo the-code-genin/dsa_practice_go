@@ -1,25 +1,15 @@
 package algorithms
 
+import "math"
+
 func binarySearch(elems []int, elem, low, high int) int {
 	newHigh := high
 	newLow := low
+	midPoint := (float64(newHigh-newLow) / 2) + float64(newLow)
 
-	if (high + 1 - low) % 2 != 0 { // Odd no of elements
-		midPoint := ((high - 1) / 2) + low
-		midElem := elems[midPoint]
-
-		if midElem == elem {
-			return midPoint
-		} else {
-			if elem > midElem {
-				newLow = midPoint
-			} else {
-				newHigh = midPoint
-			}
-		}
-	} else { // Even no of elements
-		midPoint1 := ((high - 1) / 2) + low
-		midPoint2 := midPoint1 + 1
+	if float64(int(midPoint)) != midPoint { // Even no of elements
+		midPoint1 := int(math.Floor(midPoint))
+		midPoint2 := int(math.Ceil(midPoint))
 
 		midElem1 := elems[midPoint1]
 		midElem2 := elems[midPoint2]
@@ -33,6 +23,16 @@ func binarySearch(elems []int, elem, low, high int) int {
 				newLow = midPoint2
 			} else {
 				newHigh = midPoint1
+			}
+		}
+	} else { // Odd no of elements
+		if midElem := elems[int(midPoint)]; midElem == elem {
+			return int(midPoint)
+		} else {
+			if elem > midElem {
+				newLow = int(midPoint)
+			} else {
+				newHigh = int(midPoint)
 			}
 		}
 	}
@@ -49,5 +49,5 @@ func BinarySearch(elems []int, elem int) int {
 		return -1
 	}
 
-	return binarySearch(elems, elem, 0, len(elems) - 1)
+	return binarySearch(elems, elem, 0, len(elems)-1)
 }
