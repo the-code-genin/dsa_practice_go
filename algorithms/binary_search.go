@@ -2,22 +2,24 @@ package algorithms
 
 import "math"
 
-func binarySearch(elems []int, elem, low, high int) int {
+type BinarySearch struct{}
+
+func (s BinarySearch) Search(elems []int, elem int, low, high uint) int {
 	newHigh := high
 	newLow := low
 	midPoint := (float64(newHigh-newLow) / 2) + float64(newLow)
 
 	if float64(int(midPoint)) != midPoint { // Even no of elements
-		midPoint1 := int(math.Floor(midPoint))
-		midPoint2 := int(math.Ceil(midPoint))
+		midPoint1 := uint(math.Floor(midPoint))
+		midPoint2 := uint(math.Ceil(midPoint))
 
 		midElem1 := elems[midPoint1]
 		midElem2 := elems[midPoint2]
 
 		if midElem1 == elem {
-			return midPoint1
+			return int(midPoint1)
 		} else if midElem2 == elem {
-			return midPoint2
+			return int(midPoint2)
 		} else {
 			if elem > midElem2 {
 				newLow = midPoint2
@@ -30,9 +32,9 @@ func binarySearch(elems []int, elem, low, high int) int {
 			return int(midPoint)
 		} else {
 			if elem > midElem {
-				newLow = int(midPoint)
+				newLow = uint(midPoint)
 			} else {
-				newHigh = int(midPoint)
+				newHigh = uint(midPoint)
 			}
 		}
 	}
@@ -41,13 +43,5 @@ func binarySearch(elems []int, elem, low, high int) int {
 		return -1
 	}
 
-	return binarySearch(elems, elem, newLow, newHigh)
-}
-
-func BinarySearch(elems []int, elem int) int {
-	if len(elems) == 0 { // Empty array
-		return -1
-	}
-
-	return binarySearch(elems, elem, 0, len(elems)-1)
+	return s.Search(elems, elem, newLow, newHigh)
 }
