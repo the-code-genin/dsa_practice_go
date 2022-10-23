@@ -5,16 +5,12 @@ import "math"
 type BinarySearch struct{}
 
 func (s BinarySearch) Search(elems []int, elem int, low, high uint) int {
-	newHigh := high
-	newLow := low
+	newHigh, newLow := high, low
 	midPoint := (float64(newHigh-newLow) / 2) + float64(newLow)
 
 	if float64(int(midPoint)) != midPoint { // Even no of elements
-		midPoint1 := uint(math.Floor(midPoint))
-		midPoint2 := uint(math.Ceil(midPoint))
-
-		midElem1 := elems[midPoint1]
-		midElem2 := elems[midPoint2]
+		midPoint1, midPoint2 := uint(math.Floor(midPoint)), uint(math.Ceil(midPoint))
+		midElem1, midElem2 := elems[midPoint1], elems[midPoint2]
 
 		if midElem1 == elem {
 			return int(midPoint1)

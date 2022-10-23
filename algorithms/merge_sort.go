@@ -28,12 +28,10 @@ func (s MergeSort) SortInt(partA, partB []int) []int {
 
 	// Merge arrays
 	for i, j := 0, 0; i < len(sortedA) || j < len(sortedB); {
-		currA := math.MaxInt
+		currA, currB := math.MaxInt, math.MaxInt
 		if i < len(sortedA) {
 			currA = sortedA[i]
 		}
-
-		currB := math.MaxInt
 		if j < len(sortedB) {
 			currB = sortedB[j]
 		}

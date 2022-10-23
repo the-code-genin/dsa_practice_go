@@ -1,26 +1,21 @@
 package algorithms
 
-type SelectionSort struct {}
+type SelectionSort struct{}
 
-func (s SelectionSort) SortInt(input []int) ([]int) {
+func (s SelectionSort) SortInt(input []int) []int {
 	output := input
 
 	for i := 0; i < len(output); i++ {
-		smallestValue := output[i]
-		smallestIndex := i
+		smallestValueIndex, smallestValue := i, output[i]
 
 		for j := i + 1; j < len(output); j++ {
 			if output[j] < smallestValue {
-				smallestValue = output[j]
-				smallestIndex = j
+				smallestValueIndex, smallestValue = j, output[j]
 			}
 		}
 
-		if smallestIndex != i {
-			oldSmallestValue := output[i]
-	
-			output[i] = smallestValue
-			output[smallestIndex] = oldSmallestValue
+		if smallestValueIndex != i {
+			output[i], output[smallestValueIndex] = smallestValue, output[i]
 		}
 	}
 
